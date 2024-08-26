@@ -12,6 +12,7 @@ import {
 // ================== firebase import ===============
 import { ToastContainer, toast, Bounce } from "react-toastify";
 import moment from "moment";
+import DefaultGroupPhoto from "../assets/images/defaultGroupPhoto.jpg";
 // ================ react modal ================
 import Modal from "react-modal";
 import { IoMdCloseCircleOutline } from "react-icons/io";
@@ -26,7 +27,7 @@ const customStyles = {
     width: "50%",
     border: "none",
     padding: "0px",
-    boxShadow: "rgb(0, 0, 0,0.3) 0 0 100px 5px",
+    boxShadow: "rgb(0, 0, 0,0.3)  0 1px 25px 0",
     borderRadius: "0",
   },
 };
@@ -114,7 +115,7 @@ const ModalGroup = () => {
         GroupNameErr: "",
         GroupTagNameErr: "",
       });
-      toast.error("please crop an image", {
+      toast.error("📷 please upload a photo ", {
         position: "top-center",
         autoClose: 6000,
         hideProgressBar: false,
@@ -179,6 +180,17 @@ const ModalGroup = () => {
                 setprogress(0);
                 closeModal();
                 setImagePreview("");
+                toast.success("👥 Group created successfully ", {
+                  position: "top-center",
+                  autoClose: 6000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "light",
+                  transition: Bounce,
+                });
               });
           });
         },
@@ -290,7 +302,7 @@ const ModalGroup = () => {
                 >
                   Creat group
                   {loading && (
-                    <div className="bg-transparent absolute  left-[28%] top-[33%] h-5 w-5 animate-spin rounded-full border-[3.5px] border-b-gray border-l-white border-r-gray border-t-white"></div>
+                    <div className="bg-transparent border-b-[#a5a5a5]  border-r-[#a5a5a5] absolute left-[28%] top-[33%] h-5 w-5 animate-spin rounded-full border-[3.5px] border-l-white border-t-white"></div>
                   )}
                 </button>
               </div>
@@ -311,9 +323,15 @@ const ModalGroup = () => {
                 </div>
                 <div className="mt-5 h-[235px] w-full bg-darkBlue">
                   <picture>
-                    {imagePreview && (
+                    {imagePreview !== "" ? (
                       <img
                         src={imagePreview}
+                        alt="Selected Preview"
+                        className="h-[100%] w-full object-cover"
+                      />
+                    ) : (
+                      <img
+                        src={DefaultGroupPhoto}
                         alt="Selected Preview"
                         className="h-[100%] w-full object-cover"
                       />
